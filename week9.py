@@ -13,6 +13,8 @@ labels=model.labels_
 print("Cluster Labels: \n",labels)
 print("Cluster Centers: \n",model.cluster_centers_)
 
-plt.scatter(X.iloc[:,0],X.iolc[:,1],c=labels)
+plt.scatter(X.iloc[:,0],X.il0c[:,1],c=labels)
 plt.xlabel("Feature 1")
 plt.ylabel("Feature 2")
+plt.show()
+
