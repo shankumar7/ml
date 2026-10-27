@@ -1,29 +1,34 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import train_test_split 
-from sklearn.linear_model import LogisticRegression 
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 
-df=pd.read_csv("sample.csv")
-X=df.iloc[:,:-1]
-y=df.iloc[:,-1]
+df = pd.read_csv("sample.csv")
 
-X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=0)
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
 
-model=LogisticRegression(solver="liblinear")
-model.fit(X_train,y_train)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=0
+)
 
-y_pred=model.predict(X_test)
+model = LogisticRegression(solver="liblinear")
+model.fit(X_train, y_train)
 
-cm=metrics.confusion_matrix(y_test,y_pred)
+y_pred = model.predict(X_test)
+
+cm = metrics.confusion_matrix(y_test, y_pred)
 print(cm)
 
-sns.heatmap(pd.DataFrame(cm), annot=True , fmt="g",color="YlGnBu")
+sns.heatmap(pd.DataFrame(cm), annot=True, fmt="g", cmap="YlGnBu")
 plt.title("Confusion Matrix")
-plt.xlabel("predicted")
+plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.show()
 
-print("acuuracy: ",metrics.accuracy_score(y_test,))
+print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+print("Precision:", metrics.precision_score(y_test, y_pred, zero_division=0))
+print("Recall:", metrics.recall_score(y_test, y_pred, zero_division=0))
